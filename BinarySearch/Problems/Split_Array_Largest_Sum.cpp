@@ -1,23 +1,28 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<math.h>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+#include <string>
 
 using namespace std;
 
-//pending
-
-bool isValid(vector<int> nums, int k, int t){
+bool isValid(vector<int> nums, int k, int t)
+{
     int N = 1, sum = 0;
     for (int i = 0; i < nums.size(); i++)
     {
-        if((sum + nums[i]) <= t){
+        if (nums[i] > t)
+            return false;
+        if ((sum + nums[i]) <= t)
+        {
             sum += nums[i];
-        }else{
+        }
+        else
+        {
             N++;
             sum = nums[i];
-            if(N > k){
+            if (N > k)
+            {
                 return false;
             }
         }
@@ -25,25 +30,43 @@ bool isValid(vector<int> nums, int k, int t){
     return true;
 }
 
-int splitArray(vector<int>& nums, int k) {
-    int st = 0, end = 0, ans = 0;
+int splitArray(vector<int> &nums, int k)
+{
+    int st = 0;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (nums[i] > st)
+        {
+            st = nums[i];
+        }
+    }
+    int end = 0, ans = 0;
     for (int i = 0; i < nums.size(); i++)
     {
         end += nums[i];
     }
 
-    while(st<=end){
-        int mid = st + (end - st)/2;
-        if(isValid(nums, k, mid)){
+    while (st <= end)
+    {
+        int mid = st + (end - st) / 2;
+        if (isValid(nums, k, mid))
+        {
             ans = mid;
-            st = mid+1;
-        }else{
             end = mid - 1;
+        }
+        else
+        {
+            st = mid + 1;
         }
     }
     return ans;
 }
 
-int main(){
-    
+int main()
+{
+    vector<int> arr = {7, 2, 5, 10, 8};
+    int k = 2;
+    cout << splitArray(arr, k) << endl;
+    vector<int> arr1 = {1, 4, 4};
+    cout << splitArray(arr1, 3) << endl;
 }
