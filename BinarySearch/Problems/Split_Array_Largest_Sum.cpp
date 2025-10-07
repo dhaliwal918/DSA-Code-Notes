@@ -67,6 +67,4 @@ int main()
     vector<int> arr = {7, 2, 5, 10, 8};
     int k = 2;
     cout << splitArray(arr, k) << endl;
-    vector<int> arr1 = {1, 4, 4};
-    cout << splitArray(arr1, 3) << endl;
 }
