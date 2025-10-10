@@ -57,6 +57,6 @@ int findPages(vector<int> &arr, int k)
 
 int main()
 {
-    vector<int> arr = {15,20,17};
+    vector<int> arr = {12,34,67,90};
     cout << findPages(arr, 2) << endl;
 }
