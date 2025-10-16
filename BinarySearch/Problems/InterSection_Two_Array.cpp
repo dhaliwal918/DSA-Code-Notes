@@ -6,40 +6,27 @@
 
 using namespace std;
 
-int search(vector<int> nums, int target){
-    int st = 0, end = nums.size() - 1;
-    while(st <= end){
-        int mid = st + (end - st)/2;
-        if(target > nums[mid]){
-            st = mid + 1;
-        }else if(nums[mid] > target){
-            end = mid - 1;
-        }else {
-            return mid;
-        }
-    }
-    return -1;
-}
-
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+    sort(nums1.begin(), nums1.end());
+    sort(nums2.begin(), nums2.end());
     vector<int> ans;
-    for (int i = 0; i < nums1.size(); i++)
-    {
-        int j = 0;
-        while(j < nums2.size()){
-            int k = search(nums1, nums2[j]);
-            if(k != -1){
+    int i = 0;
+    int j = 0;
+    while(i < nums1.size() && j < nums2.size()){
+        if(nums1[i] == nums2[j]){
+            if(ans.empty() || nums1[i] != ans.back()){
                 ans.push_back(nums1[i]);
-                nums1.erase(nums1.begin() + i);
-                nums2.erase(nums2.begin() + k);
-                break;
             }
+            i++;
+            j++;
+        }else if(nums1[i] < nums2[j]){
+            i++;
+        }else{
             j++;
         }
-        
+
     }
     return ans;
-    
 }
 
 
