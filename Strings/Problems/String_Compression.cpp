@@ -3,26 +3,30 @@
 using namespace std;
 
 int compress(vector<char>& chars){
-    for(int i = 0; i<chars.size(); i++){
-        int freq = 0;
-        int j = i;
-        for(j = i; j < chars.size(); j++){
-            if(chars[i] == chars[j]){
-                freq++;
-            }else{
-                break;
+    int n = chars.size();
+    int idx = 0;
+
+    for(int i = 0; i<n ; i++){
+        int count = 0;
+        char c = chars[i];
+        while(i<n && chars[i] == c){
+            count++;
+            i++;
+        }
+        if(count == 1){
+            chars[idx] = c;
+            idx++;
+        }else{
+            chars[idx] = c;
+            idx++;
+            string countS = to_string(count);
+            for(auto c : countS){
+                chars[idx++] = c;
             }
         }
-        if(freq == 1){
-            chars.insert(chars.begin() + i + 1, '1');
-        }else if(freq == 2){
-            chars[i + 1] = '2';
-        }else{
-            chars[i + 1] = freq + '0';
-            chars.erase(chars.begin() + i + 2, chars.begin() + j - 1);
-        }
-        freq = 0;
+        i--;
     }
+    chars.resize(idx);
     return chars.size();
 }
 
