@@ -3,21 +3,20 @@
 using namespace std;
 
 bool isHappy(int n){
-    if(n == 1){
-        return true;
+    unordered_set<int> seen;
+
+    while(n != 1 && !seen.count(n)){
+        seen.insert(n);
+        int sum = 0;
+        while(n > 0){
+            sum = (n%10) * (n%10);
+            n /= 10;
+        }
+        n = sum;
     }
-    int prev = 1;
-    int present = 1;
-    while(n != 0){
-        present += (n%10 * n%10);
-        n/=10;
-    }
-    if(present == prev){
-        return false;
-    }
-    return isHappy(present);
+    return n == 1;
 }
 
 int main(){
-    cout << isHappy(2) << endl;
+    cout << isHappy(19) << endl;
 }
